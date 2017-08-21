@@ -2,15 +2,32 @@
 <div class="row">
   <form (ngSubmit)="onSubmit()" >
   <div class="form-group">
-    <label for="date">買賣日期: </label>
-    <input type="date" id="date" name="date" ngModel class="form-control">
-    <label for="buyPrice">買進價格: </label>
-    <input type="number" id="buyPrice" name="buyPrice" ngModel class="form-control">
-    <label for="sellPrice">賣出價格: </label>
-    <input type="number" id="sellPrice" name="sellPrice" ngModel class="form-control">
+    <div class="col-xs-3">
+     <label for="date">買賣日期: </label>
+     <input type="date" id="date" name="date" ngModel class="form-control">
+    </div>
+    <div class="col-xs-2">
+      <label for="buyPrice">買進價格: </label>
+      <input type="number" id="buyPrice" name="buyPrice" ngModel class="form-control">
+    </div>
+    <div class="col-xs-2">
+      <label for="sellPrice">賣出價格: </label>
+      <input type="number" id="sellPrice" name="sellPrice" ngModel class="form-control">
+    </div>
+    <div class="col-xs-2">
+      <label for="buyUnit">買進口數: </label>
+      <input type="number" id="buyUnit" name="buyUnit" ngModel class="form-control">
+    </div>
+    <div class="col-xs-2">
+     <label for="sellUnit">賣出口數: </label>
+      <input type="number" id="sellUnit" name="sellUnit" ngModel class="form-control">
+    </div>
   </div>
-    <button
-      class="btn btn-success"
-      type="submit">輸入資料</button>
+    <br><br><br><br>
+    <div class="col-xs-5">
+      <button
+        class="btn btn-success"
+        type="submit">輸入資料</button>
+    </div>
   </form>
 </div>
