@@ -9,6 +9,8 @@ import { ChartComponent } from './chart/chart.component';
 import { AnalysisComponent } from './analysis/analysis.component';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpModule} from '@angular/http';
+import {AuthGuard} from './log-manager/auth-guard.service';
+import {AuthService} from './log-manager/auth.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,7 @@ import {HttpModule} from '@angular/http';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
