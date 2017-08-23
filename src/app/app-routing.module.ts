@@ -11,7 +11,8 @@ const appRoutes: Routes = [
   { path: 'log-manager', component: LogManagerComponent },
   { path: 'data-manager', component: DataManagerComponent, canActivate: [AuthGuard]},
   { path: 'chart', component: ChartComponent, canActivate: [AuthGuard] },
-  { path: 'analysis', component: AnalysisComponent, canActivate: [AuthGuard] }
+  { path: 'analysis', component: AnalysisComponent, canActivate: [AuthGuard] },
+  { path: '*',  component: LogManagerComponent }
 ];
 
 @NgModule({

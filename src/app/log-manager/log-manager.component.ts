@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 
+import {LogService} from './log.service';
+import {User} from '../Model/user.model';
+import {Subscription} from 'rxjs/Subscription';
 import {AuthService} from './auth.service';
 
 @Component({
@@ -8,20 +11,39 @@ import {AuthService} from './auth.service';
   templateUrl: './log-manager.component.html',
   styleUrls: ['./log-manager.component.css']
 })
-export class LogManagerComponent implements OnInit {
-  name: string;
-  password: string;
+export class LogManagerComponent implements OnInit, OnDestroy {
+  returnMsg: string;
+  subscription: Subscription;
 
-  constructor(private authService: AuthService) {}
+  constructor(private logService: LogService,
+            private authService: AuthService) {}
 
   ngOnInit() {
+    this.subscription = this.logService.msgChanged.subscribe(
+      (msg: string) => {
+        this.returnMsg = msg;
+      }
+    );
   }
 
-  onSignin(form: NgForm) {
-
+  signin(form: NgForm) {
+    const value = form.value;
+    const user = new User(value.name, value.password);
+    this.logService.signin(user);
+  }
+  signup(form: NgForm) {
+    const value = form.value;
+    const user = new User(value.name, value.password);
+    this.logService.saveUser(user);
   }
 
-  getValidated() {
-    return this.authService.getValidated();
+  logOut(form: NgForm) {
+    form.reset();
+    this.authService.setValidated(false);
+    this.returnMsg = 'Log out success!';
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

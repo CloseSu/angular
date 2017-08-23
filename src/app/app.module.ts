@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import {FormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LogManagerComponent } from './log-manager/log-manager.component';
 import { HeaderComponent } from './header/header.component';
@@ -14,6 +15,7 @@ import {AuthService} from './log-manager/auth.service';
 
 import { ChartModule } from 'angular2-highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
+import { LogService } from './log-manager/log.service';
 
 export function highchartsFactory() {
   const hc = require('highcharts/highstock');
@@ -36,9 +38,10 @@ export function highchartsFactory() {
     BrowserModule,
     AppRoutingModule,
     ChartModule,
-    JsonpModule
+    JsonpModule,
+    FormsModule
   ],
-  providers: [AuthGuard, AuthService, {
+  providers: [AuthGuard, AuthService, LogService, {
     provide: HighchartsStatic,
     useFactory: highchartsFactory
   }],

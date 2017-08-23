@@ -6,7 +6,7 @@ export class Future {
     public high: number,
     public low: number,
     public last: number,
-    public change: number,
+    public changeMoney: number,
     public percent: number,
     public volumn: number,
     public settlementPrice: number,
