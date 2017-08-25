@@ -1,92 +1,116 @@
-import { Component, OnInit } from '@angular/core';
-import {Jsonp} from '@angular/http';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {Subscription} from 'rxjs/Subscription';
+import {ChartService} from './chart.service';
+import {LogService} from '../log-manager/log.service';
+import {User} from '../Model/user.model';
+import {Trade} from '../Model/trade.nodel';
 
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.css']
 })
-export class ChartComponent implements OnInit {
-  options;
+export class ChartComponent implements OnInit, OnDestroy {
+  options: any;
+  subscription: Subscription;
+  user: User;
 
-  data = [
-    [1282521600000, 35.97, 36, 35.04, 35.11],
-    [1282608000000, 34.67, 34.71, 34.09, 34.28],
-    [1282694400000, 34.01, 34.86, 33.89, 34.7],
-    [1282780800000, 35.06, 35.11, 34.33, 34.33],
-    [1282867200000, 34.54, 34.66, 33.65, 34.52]
-  ];
-
-  constructor() {}
+  constructor(private chartService: ChartService,
+            private logService: LogService) {}
 
   ngOnInit() {
-    this.options = {
-      title : { text : '期貨歷史線圖' },
-      chart: {
-        width: 1100,
-        height: 350
-      },
-      rangeSelector : {
-        selected : 1,
-        buttons: [{
-          type: 'day',
-          count: 1,
-          text: '1d'
-        }, {
-          type: 'day',
-          count: 7,
-          text: '7d'
-        }, {
-          type: 'month',
-          count: 1,
-          text: '1m'
-        }, {
-          type: 'year',
-          count: 1,
-          text: '1y'
-        }, {
-          type: 'all',
-          text: 'All'
-        }]
-      },
-      series : [{
-        type : 'candlestick',
-        name : 'CandleSticks',
-        data : this.data,
-        tooltip: {
-          valueDecimals: 2
-        }
-      }, {
-        name: 'avg20',
-        type: 'spline',
-        data: [
-          [1282521600000, 33],
-          [1282608000000, 32],
-          [1282694400000, 31],
-          [1282780800000, 35],
-          [1282867200000, 36]
-        ],
-        tooltip: {
-          valueDecimals: 2
-        }
-      }, {
-        name: 'avg60',
-        type: 'spline',
-        data: [
-          [1282521600000, 35.97],
-          [1282608000000, 34.67],
-          [1282694400000, 34.01],
-          [1282780800000, 35.06],
-          [1282867200000, 34.54]
-        ],
-        tooltip: {
-          valueDecimals: 2
-        }
-      }]
-    };
+    this.user = this.logService.user;
+    this.subscription = this.chartService.futureChanged.subscribe(
+      (data: any) => {
+        this.options = {
+          title : { text : '大盤歷史線圖' },
+          chart: {
+            width: 1100,
+            height: 500
+          },
+          yAxis: [{
+            min: data.min,
+            max: data.max,
+            height: '100%'
+          }], xAxis: {
+              tickInterval: 0
+          },
+          rangeSelector : {
+            selected : 1,
+            buttons: [ {
+              type: 'month',
+              count: 1,
+              text: '1m'
+            }, {
+              type: 'month',
+              count: 3,
+              text: '3m'
+            }, {
+              type: 'month',
+              count: 6,
+              text: '6m'
+            }, {
+              type: 'year',
+              count: 1,
+              text: '1y'
+            }, {
+              type: 'all',
+              text: 'All'
+            }]
+          },
+          series : [{
+            type : 'candlestick',
+            name : 'CandleSticks',
+            data : data.mainList,
+            tooltip: {
+              valueDecimals: 1
+            }
+          }, {
+            name: 'avg20',
+            type: 'spline',
+            data: data.avg20List,
+            tooltip: {
+              valueDecimals: 1
+            }
+          }, {
+            name: 'avg60',
+            type: 'spline',
+            data: data.avg60List,
+            tooltip: {
+              valueDecimals: 1
+            }
+          }]
+        };
+      }
+    );
   }
 
-  onSubmit() {
+  getHistoryData(form: NgForm) {
+    const value = form.value;
+    const condition = {'dateStart': value.dateStart, 'dateEnd': value.dateEnd };
+    this.chartService.getHistoryData(condition);
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  setTradeData(form: NgForm) {
+    const value = form.value;
+    if (value.date !== null && value.date !== '') {
+      const trade = new Trade(this.user.userid,
+        null,
+        value.tradetype,
+        value.date,
+        value.buyPrice,
+        value.sellPrice,
+        value.buyUnits,
+        value.sellUnits,
+        null,
+        null);
+      this.chartService.setTradeData(trade);
+      form.reset();
+    }
 
   }
 }

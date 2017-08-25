@@ -16,12 +16,15 @@ import {AuthService} from './log-manager/auth.service';
 import { ChartModule } from 'angular2-highcharts';
 import { HighchartsStatic } from 'angular2-highcharts/dist/HighchartsService';
 import { LogService } from './log-manager/log.service';
+import {DataService} from './data-manager/data.service';
+import {ChartService} from './chart/chart.service';
+import {TradeService} from './analysis/trade.service';
 
 export function highchartsFactory() {
-  const hc = require('highcharts/highstock');
+  const Highcharts = require('highcharts/highstock');
   const dd = require('highcharts/modules/exporting');
-  dd(hc);
-  return hc;
+  dd(Highcharts);
+  return Highcharts;
 }
 
 @NgModule({
@@ -41,7 +44,7 @@ export function highchartsFactory() {
     JsonpModule,
     FormsModule
   ],
-  providers: [AuthGuard, AuthService, LogService, {
+  providers: [AuthGuard, AuthService, LogService, DataService, ChartService, TradeService, {
     provide: HighchartsStatic,
     useFactory: highchartsFactory
   }],

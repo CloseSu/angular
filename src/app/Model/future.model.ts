@@ -1,5 +1,8 @@
 export class Future {
   constructor(
+    public id: number,
+    public date: string,
+    public milliseconds: number,
     public contract: string,
     public contractMonth: number,
     public open: number,

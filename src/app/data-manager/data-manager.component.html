@@ -1,20 +1,19 @@
 <button
   class="btn btn-success"
   (click)="getData()">取得今日行情</button>
+<p> 臺股期貨 (TX) 行情表  單位：口(成交量、未沖銷契約量)</p>
 <table class="table">
   <thead>
-  日期：{{date}}
-  臺股期貨 (TX) 行情表
-  單位：口(成交量、未沖銷契約量)
   <tr>
-    <th>契約</th>
+    <th class="col-md-1">契約</th>
+    <th>日期</th>
     <th>到期月份(週別)</th>
     <th>開盤價</th>
     <th>最高價</th>
     <th>最低價</th>
     <th>最後成交價</th>
     <th>漲跌價</th>
-    <th>漲跌%</th>
+    <th class="col-md-1">漲跌%</th>
     <th>*成交量</th>
     <th>結算價</th>
     <th>*未沖銷契約量</th>
@@ -26,14 +25,15 @@
   </thead>
   <tbody>
   <tr *ngFor="let future of futureList">
-    <td>{{future.contract}}</td>
+    <td class="col-md-1">{{future.contract}}</td>
+    <td>{{future.date}}</td>
     <td>{{future.contractMonth}}</td>
     <td>{{future.open}}</td>
     <td>{{future.high}}</td>
     <td>{{future.low}}</td>
     <td>{{future.last}}</td>
-    <td>{{future.change}}</td>
-    <td>{{future.percent}}</td>
+    <td>{{future.changeMoney}}</td>
+    <td  class="col-md-1">{{future.percent}}</td>
     <td>{{future.volumn}}</td>
     <td>{{future.settlementPrice}}</td>
     <td>{{future.openInteres}}</td>

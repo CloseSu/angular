@@ -8,7 +8,7 @@ import {Subject} from 'rxjs/Subject';
 @Injectable()
 export class LogService {
   msgChanged = new Subject<string>();
-  userChanged = new Subject<User>();
+  user: User;
 
   constructor(private http: Http,
             private authservice: AuthService) {}
@@ -19,6 +19,8 @@ export class LogService {
          const data = res.json();
          this.authservice.setValidated(data.result);
          this.msgChanged.next(data.returnMsg);
+         console.log(data.user);
+         this.user = data.user;
        }
     );
   }
@@ -29,8 +31,13 @@ export class LogService {
         const data = res.json();
         this.authservice.setValidated(data.result);
         this.msgChanged.next(data.returnMsg);
-        this.userChanged.next(data.user);
+        console.log(data.user);
+        this.user = data.user;
       }
     );
+  }
+
+  clearUser() {
+    this.user = null;
   }
 }

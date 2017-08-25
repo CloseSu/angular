@@ -28,18 +28,19 @@ export class LogManagerComponent implements OnInit, OnDestroy {
 
   signin(form: NgForm) {
     const value = form.value;
-    const user = new User(value.name, value.password);
+    const user = new User(null, value.name, value.password);
     this.logService.signin(user);
   }
   signup(form: NgForm) {
     const value = form.value;
-    const user = new User(value.name, value.password);
+    const user = new User(null, value.name, value.password);
     this.logService.saveUser(user);
   }
 
   logOut(form: NgForm) {
     form.reset();
     this.authService.setValidated(false);
+    this.logService.clearUser();
     this.returnMsg = 'Log out success!';
   }
 

@@ -1,3 +1,52 @@
-<p>
-  analysis works!
-</p>
+<form ngSubmit #b="ngForm" >
+<table class="table">
+  <thead>
+    <tr>
+      <th>使用者ID</th>
+      <th>交易類別</th>
+      <th>交易日期</th>
+      <th>買進價格</th>
+      <th>賣出價格</th>
+      <th>買進口數</th>
+      <th>賣出口數</th>
+      <th>總共口數</th>
+      <th>總共餘額</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let trade of tradeList; let i = index"  >
+      <td>{{trade.userid}}</td>
+      <td>{{trade.tradetype}}</td>
+      <td>{{trade.date}}</td>
+      <td>{{trade.buyprice}}</td>
+      <td>{{trade.sellprice}}</td>
+      <td>{{trade.buyunits}}</td>
+      <td>{{trade.sellunits}}</td>
+      <td class="col-xs-2">
+        <input type="text" id="{{'totoUnit_' + trade.id}}" name="{{'totoUnit_' + trade.id}}" [(ngModel)]="trade.totolunits"  class="form-control">
+      </td>
+      <td class="col-xs-2">
+        <input type="text" id="{{'totoMoney_' + + trade.id}}" name="{{'totoMoney_' + trade.id}}"  [(ngModel)]="trade.totolmoney"  class="form-control">
+      </td>
+    </tr>
+  </tbody>
+</table>
+</form>
+<div class="row">
+  <form ngSubmit #a="ngForm" >
+    <div class="form-group">
+      <div class="col-md-2">
+        <label for="dateStart">搜尋日期起: </label>
+        <input type="date" id="dateStart" name="dateStart" ngModel class="form-control">
+      </div>
+      <div class="col-md-2">
+        <label for="dateEnd">搜尋日期迄: </label>
+        <input type="date" id="dateEnd" name="dateEnd" ngModel class="form-control">
+      </div>
+    </div>
+  </form>
+</div>
+<br>
+<button  class="btn btn-primary" type="submit" (click)="getTradeList(a)">搜尋</button>
+<button  class="btn btn-default" type="submit" (click)="updateTradeList(b)">更新</button>
+<iframe width="100%" height="250" src="http://www.guild.com.tw/ny_web/js_44.html"></iframe>
