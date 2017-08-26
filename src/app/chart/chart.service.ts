@@ -13,6 +13,7 @@ export class ChartService {
     return this.http.post('http://localhost:8080/getHisoryTsecWeightedData', data).subscribe(
       res => {
         const response = res.json();
+        console.log(response);
         this.futureChanged.next(response);
       }
      );

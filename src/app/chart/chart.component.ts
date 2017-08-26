@@ -80,6 +80,13 @@ export class ChartComponent implements OnInit, OnDestroy {
             tooltip: {
               valueDecimals: 1
             }
+          }, {
+            name: 'avg120',
+            type: 'spline',
+            data: data.avg120List,
+            tooltip: {
+              valueDecimals: 1
+            }
           }]
         };
       }
