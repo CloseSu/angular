@@ -44,9 +44,9 @@ export class AnalysisComponent implements OnInit {
 
   setTradeData(form: NgForm) {
     const value = form.value;
-    if (value.tradetype.toUpperCase() != "PB" ||
-        value.tradetype.toUpperCase() != "PS" ||
-        value.tradetype.toUpperCase() != "NS" ||
+    if (value.tradetype.toUpperCase() != "PB" &&
+        value.tradetype.toUpperCase() != "PS" &&
+        value.tradetype.toUpperCase() != "NS" &&
         value.tradetype.toUpperCase() != "NB") {
         alert("請輸入正確類別!")
     }
