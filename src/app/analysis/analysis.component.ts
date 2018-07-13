@@ -3,6 +3,9 @@ import {Trade} from '../Model/trade.nodel';
 import {TradeService} from './trade.service';
 import {NgForm} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
+import {ChartService} from "../chart/chart.service";
+import {LogService} from "../log-manager/log.service";
+import {User} from "../Model/user.model";
 
 @Component({
   selector: 'app-analysis',
@@ -12,10 +15,15 @@ import {Subscription} from 'rxjs/Subscription';
 export class AnalysisComponent implements OnInit {
   tradeList: Trade[];
   subscription: Subscription;
+  user: User;
 
-  constructor(private tradeService: TradeService) { }
+  constructor(private chartService: ChartService,
+              private tradeService: TradeService,
+              private logService: LogService) { }
+
 
   ngOnInit() {
+    this.user = this.logService.user;
     this.subscription = this.tradeService.tradeChanged.subscribe(
       (res: any) => {
         this.tradeList = res;
@@ -32,5 +40,24 @@ export class AnalysisComponent implements OnInit {
   updateTradeList(form: NgForm) {
     const data = form.value;
     this.tradeService.updateTradeList(data);
+  }
+
+  setTradeData(form: NgForm) {
+    const value = form.value;
+    if (value.date !== null && value.date !== '') {
+      const trade = new Trade(this.user.userid,
+        null,
+        value.tradetype,
+        value.date,
+        value.buyPrice,
+        value.sellPrice,
+        value.buyUnits,
+        value.sellUnits,
+        null,
+        null);
+      this.chartService.setTradeData(trade);
+      form.reset();
+    }
+
   }
 }

@@ -102,22 +102,5 @@ export class ChartComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  setTradeData(form: NgForm) {
-    const value = form.value;
-    if (value.date !== null && value.date !== '') {
-      const trade = new Trade(this.user.userid,
-        null,
-        value.tradetype,
-        value.date,
-        value.buyPrice,
-        value.sellPrice,
-        value.buyUnits,
-        value.sellUnits,
-        null,
-        null);
-      this.chartService.setTradeData(trade);
-      form.reset();
-    }
 
-  }
 }

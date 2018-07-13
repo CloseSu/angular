@@ -16,41 +16,4 @@
 <button  class="btn btn-primary" type="submit" (click)="getHistoryData(a)">搜尋</button>
 <!--<iframe width="100%" height="700" src="http://pchome.megatime.com.tw/tse/sto0/ock1"></iframe>-->
 <chart type="StockChart" [options]="options"></chart>
-<div class="row">
-  <form ngSubmit #b="ngForm" >
-  <div class="form-group">
-    <div class="col-xs-1">
-      <label for="tradetype">交易類別: </label>
-      <input type="text" id="tradetype" name="tradetype" ngModel class="form-control">
-    </div>
-    <div class="col-xs-3">
-     <label for="date">買賣日期: </label>
-     <input type="date" id="date" name="date" ngModel class="form-control">
-    </div>
-    <div class="col-xs-2">
-      <label for="buyPrice">買進價格: </label>
-      <input type="number" id="buyPrice" name="buyPrice" ngModel class="form-control">
-    </div>
-    <div class="col-xs-2">
-      <label for="sellPrice">賣出價格: </label>
-      <input type="number" id="sellPrice" name="sellPrice" ngModel class="form-control">
-    </div>
-    <div class="col-xs-2">
-      <label for="buyUnits">買進口數: </label>
-      <input type="number" id="buyUnits" name="buyUnits" ngModel class="form-control">
-    </div>
-    <div class="col-xs-2">
-     <label for="sellUnits">賣出口數: </label>
-      <input type="number" id="sellUnits" name="sellUnits" ngModel class="form-control">
-    </div>
-  </div>
-    <br><br><br><br>
-    <div class="col-xs-5">
-      <p>使用者 ID: {{ user.userid}}</p>
-      <button
-        class="btn btn-success"
-        type="submit"
-        (click)="setTradeData(b)">輸入資料</button>
-    </div>
-  </form>
-</div>
+
