@@ -44,6 +44,13 @@ export class AnalysisComponent implements OnInit {
 
   setTradeData(form: NgForm) {
     const value = form.value;
+    if (value.tradetype.toUpperCase() != "PB" ||
+        value.tradetype.toUpperCase() != "PS" ||
+        value.tradetype.toUpperCase() != "NS" ||
+        value.tradetype.toUpperCase() != "NB") {
+        alert("請輸入正確類別!")
+    }
+
     if (value.date !== null && value.date !== '') {
       const trade = new Trade(this.user.userid,
         null,
@@ -54,7 +61,8 @@ export class AnalysisComponent implements OnInit {
         value.buyUnits,
         value.sellUnits,
         null,
-        null);
+        null,
+        value.percentage);
       this.chartService.setTradeData(trade);
       form.reset();
     }

@@ -9,6 +9,7 @@ export class Trade {
     public buyunits: number,
     public sellunits: number,
     public totolunits: number,
-    public totolmoney: number
+    public totolmoney: number,
+    public percentage: number
   ) {}
 }

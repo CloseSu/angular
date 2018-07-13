@@ -11,6 +11,7 @@
       <th>賣出口數</th>
       <th>總共點數</th>
       <th>總共餘額</th>
+      <th>%</th>
     </tr>
   </thead>
   <tbody>
@@ -28,6 +29,7 @@
       <td class="col-xs-2">
         <input type="text" id="{{'totoMoney_' + + trade.id}}" name="{{'totoMoney_' + trade.id}}"  [(ngModel)]="trade.totolmoney"  class="form-control">
       </td>
+      <td>{{trade.percentage}} </td>
     </tr>
   </tbody>
 </table>
