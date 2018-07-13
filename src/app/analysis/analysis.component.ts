@@ -48,10 +48,8 @@ export class AnalysisComponent implements OnInit {
         value.tradetype.toUpperCase() != "PS" &&
         value.tradetype.toUpperCase() != "NS" &&
         value.tradetype.toUpperCase() != "NB") {
-        alert("請輸入正確類別!")
-    }
-
-    if (value.date !== null && value.date !== '') {
+        alert("請輸入正確類別!");
+    } else if (value.date !== null && value.date !== '') {
       const trade = new Trade(this.user.userid,
         null,
         value.tradetype,
